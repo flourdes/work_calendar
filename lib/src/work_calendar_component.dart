@@ -11,8 +11,7 @@ class WorkCalendarComponent extends StatefulWidget {
 }
 
 class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
-  late int ganancia = 555;
-  late int ganancias = ganancia + 1000;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,25 +27,24 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   }
 
   Widget _profits(){
-    return Expanded(
-      child: Container(
-        height: 200,
-        width: double.infinity,
-        color: Colors.black,
-        child: Column(
-          children: [
-            _profitsContainer('Ganancia diaria:', ganancia),
-            const SizedBox(height: 20,),
-            _profitsContainer('Ganancia total:', ganancias),
-          ],
-        ),
+    late int ganancia = 555;
+    late int ganancias = ganancia + 1000;
+    return Container(
+      height: 200,
+      width: double.infinity,
+      color: Colors.black,
+      child: Column(
+        children: [
+          _profitsContainer('Ganancia Diaria:', ganancia),
+          const SizedBox(height: 20,),
+          _profitsContainer('Ganancia Total:', ganancias),
+        ],
       ),
     );
   }
   Widget _profitsContainer(String label, ganancia){
     return Container(
       padding: const EdgeInsets.all(10),
-      width: 300,
       height: 50,
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -56,10 +54,10 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(fontSize: 20, color: Colors.black),),
+          Text(label, style: const TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w200,)),
           const Expanded(child: SizedBox.shrink()),
           const Icon(Icons.attach_money, size: 20, color: Colors.teal,),
-          Text(ganancia.toString(), style: const TextStyle(fontSize: 20, color: Colors.teal, decoration: TextDecoration.none),),
+          Text(ganancia.toString(), style: const TextStyle(fontSize: 20, color: Colors.teal,),),
         ],
       ),
     );
