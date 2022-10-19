@@ -34,7 +34,7 @@ _worckCalendarCard(){
         borderRadius: BorderRadius.circular(10),
         child: Container(
           height: 400,
-          color: Colors.amberAccent,
+          color: Colors.white,
           child: Column(
             children: [
               Text("persona"),
@@ -43,38 +43,39 @@ _worckCalendarCard(){
                 color: Colors.grey,
                 thickness: 3,
               ),
-              Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        color: Colors.indigo,
-                      )),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          color: Colors.indigo,
+                        )),
 
-                  Expanded(
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        color: Colors.redAccent,
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 50,
-                              width: double.infinity,
-                              color: Colors.cyanAccent,
-                            ),
-                            Container(
-                              height: 50,
-                              width: double.infinity,
-                              color: Colors.black,
-                            )
+                    Expanded(
+                        child: Container(
+                          height: 200,
+                          color: Colors.redAccent,
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                width: double.infinity,
+                                color: Colors.cyanAccent,
+                              ),
+                              Container(
+                                height: 50,
+                                width: double.infinity,
+                                color: Colors.black,
+                              )
 
-                          ],
+                            ],
 
-                        ),
-                      ))
-                ],
+                          ),
+                        ))
+                  ],
+                ),
               )
             ],
 
@@ -85,5 +86,3 @@ _worckCalendarCard(){
     ),
   );
 }
-
-
