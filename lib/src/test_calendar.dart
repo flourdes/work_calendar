@@ -22,7 +22,6 @@ class TestCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Scrollable Clean Calendar',
       theme: ThemeData(
         colorScheme: const ColorScheme(
           primary: Color(0xFF3F51B5),
@@ -40,25 +39,8 @@ class TestCalendar extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Scrollable Clean Calendar'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                calendarController.clearSelectedDates();
-              },
-              icon: const Icon(Icons.clear),
-            )
-          ],
-        ),
-        // floatingActionButton: FloatingActionButton(
-        //   child: const Icon(Icons.arrow_downward),
-        //   onPressed: () {
-        //     calendarController.jumpToMonth(date: DateTime(2022, 8));
-        //   },
-        // ),
-        body: ScrollableCleanCalendar(
+      home: SizedBox(
+        child: ScrollableCleanCalendar(
           calendarController: calendarController,
           layout: Layout.BEAUTY,
           calendarCrossAxisSpacing: 0,

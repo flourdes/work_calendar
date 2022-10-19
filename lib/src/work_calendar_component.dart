@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/src/test_calendar.dart';
 
 class WorkCalendarComponent extends StatefulWidget {
   const WorkCalendarComponent({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ _workCalendar(){
   return AlertDialog(
     insetPadding: EdgeInsets.fromLTRB(5, 200, 5, 200),
     elevation: 0,
-    backgroundColor: Colors.teal,
+    backgroundColor: Colors.transparent,
     content: (_worckCalendarCard()),
   );
 }
@@ -47,27 +48,29 @@ _worckCalendarCard(){
                 child: Row(
                   children: [
                     Expanded(
-                        child: Container(
+                        child: SizedBox(
                           height: 200,
                           width: 200,
-                          color: Colors.indigo,
+                          child: TestCalendar(),
                         )),
 
                     Expanded(
                         child: Container(
-                          height: 200,
+                          height: double.infinity,
                           color: Colors.redAccent,
                           child: Column(
                             children: [
-                              Container(
-                                height: 50,
-                                width: double.infinity,
-                                color: Colors.cyanAccent,
+                              Expanded(
+                                child: SizedBox.expand(
+                                  child: _profits(),
+                                )
                               ),
-                              Container(
-                                height: 50,
-                                width: double.infinity,
-                                color: Colors.black,
+                              Expanded(
+                                child: Container(
+                                  height: 50,
+                                  width: double.infinity,
+                                  color: Colors.black,
+                                ),
                               )
 
                             ],
@@ -92,35 +95,39 @@ Widget _profits(){
   late int ganancia = 555;
   late int ganancias = ganancia + 1000;
   return Container(
-    height: 200,
-    width: double.infinity,
-    color: Colors.black,
+    color: Colors.yellow,
     child: Column(
       children: [
         _profitsContainer('Ganancia Diaria:', ganancia),
-        const SizedBox(height: 20,),
+        Divider(
+          height: 10,
+          thickness: 3,
+        ),
         _profitsContainer('Ganancia Total:', ganancias),
       ],
     ),
   );
 }
 Widget _profitsContainer(String label, ganancia){
-  return Container(
-    padding: const EdgeInsets.all(10),
-    height: 50,
-    decoration: BoxDecoration(
-      color: Colors.grey.shade200,
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(label, style: const TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w200,)),
-        const Expanded(child: SizedBox.shrink()),
-        const Icon(Icons.attach_money, size: 20, color: Colors.teal,),
-        Text(ganancia.toString(), style: const TextStyle(fontSize: 20, color: Colors.teal,),),
-      ],
+  return SizedBox(
+    child: Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: SizedBox(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label, style: const TextStyle(fontSize: 11, color: Colors.black, fontWeight: FontWeight.w200,)),
+            const Expanded(child: SizedBox.shrink()),
+            const Icon(Icons.attach_money, size: 10, color: Colors.teal,),
+            Text(ganancia.toString(), style: const TextStyle(fontSize: 11, color: Colors.teal,),),
+          ],
+        ),
+      ),
     ),
   );
 }
