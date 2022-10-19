@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/src/test_calendar.dart';
 import 'package:untitled/src/work_calendar_component.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const WorkCalendarComponent(),
+      home: const Scaffold(body: WorkCalendarComponent()),
     );
   }
 }
