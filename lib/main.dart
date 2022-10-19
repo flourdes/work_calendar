@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/src/work_calendar_component.dart';
+import 'package:untitled/src/models/task_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,74 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+  List<Task> tasks = [
+    Task(
+      procedure: "Testfsafdakf",
+      product: "Testfadg",
+      amount: 10412,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+    Task(
+      procedure: "Test",
+      product: "Test",
+      amount: 10,
+    ),
+  ];
+
 }
 
 class MyHomePage extends StatefulWidget {
