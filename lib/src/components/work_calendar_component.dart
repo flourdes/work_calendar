@@ -108,6 +108,9 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                               headerStyle: const HeaderStyle(
                                 formatButtonVisible: false,
                                 titleCentered: true,
+                                leftChevronIcon: Icon(Icons.chevron_left, size: 50,),
+                                rightChevronIcon: Icon(Icons.chevron_right, size: 50),
+
                               ),
                               startingDayOfWeek: StartingDayOfWeek.monday,
                               daysOfWeekStyle: DaysOfWeekStyle(
