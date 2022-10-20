@@ -179,14 +179,14 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   }
 
   _profits() {
-    late double ganancia = widget.employee.salary.dailySalary;
-    late double ganancias = widget.employee.salary.totalSalary;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _profitsContainer('Ganancia Diaria:', ganancia),
+        _profitsContainer(
+            'Ganancia Diaria:', widget.employee.salary.dailySalary),
         const SizedBox(height: 10),
-        _profitsContainer('Ganancia Total:', ganancias),
+        _profitsContainer(
+            'Ganancia Total:', widget.employee.salary.totalSalary),
       ],
     );
   }
