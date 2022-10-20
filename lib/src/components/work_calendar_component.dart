@@ -10,12 +10,16 @@ class WorkCalendarComponent extends StatefulWidget {
     required this.employee,
   }) : super(key: key);
 
+
+
   @override
   State<WorkCalendarComponent> createState() => _WorkCalendarComponentState();
 }
 
 class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   late ScrollController _scrollController;
+  late final Color _primaryColor = Colors.grey.shade200;
+  late final Color _secondColor = Colors.teal;
 
   @override
   void initState() {
@@ -178,7 +182,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: _primaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -191,16 +195,16 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                 color: Colors.grey,
               )),
           const Expanded(child: SizedBox()),
-          const Icon(
+           Icon(
             Icons.attach_money,
             size: 20,
-            color: Colors.teal,
+            color: _secondColor,
           ),
           Text(
             ganancia.toString(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
-              color: Colors.teal,
+              color: _secondColor,
             ),
           ),
         ],
@@ -226,7 +230,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
             trackVisibility: true,
             thumbVisibility: true,
             trackColor: Colors.grey,
-            thumbColor: Colors.teal,
+            thumbColor: _secondColor,
             radius: const Radius.circular(10),
             trackRadius: const Radius.circular(10),
             child: Padding(
