@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/src/work_calendar_component.dart';
+import 'package:untitled/src/components/task.dart';
+import 'package:untitled/src/components/work_calendar_component.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
@@ -36,13 +36,22 @@ class _MyHomePageState extends State<MyHomePage> {
     showDialog(
         context: context,
         builder: (context) {
-          return WorkCalendarComponent();
+          return WorkCalendarComponent(
+            tasks: [
+              Task(procedure: "Test", product: "Test", amount: 10),
+              Task(procedure: "Test", product: "Test", amount: 10),
+              Task(procedure: "Test", product: "Test", amount: 10),
+              Task(procedure: "Test", product: "Test", amount: 10),
+              Task(procedure: "Test", product: "Test", amount: 10),
+              Task(procedure: "Test", product: "Test", amount: 10),
+              Task(procedure: "Test", product: "Test", amount: 10),
+            ],
+          );
         });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -50,13 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: MaterialButton(
-            onPressed: _save,
-            padding: const EdgeInsets.all(12),
-            color: Colors.blueAccent,
-            child: Text("trabajos"),
-          ),
+          onPressed: _save,
+          padding: const EdgeInsets.all(12),
+          color: Colors.blueAccent,
+          child: Text("trabajos"),
         ),
-      ) // This trailing comma makes auto-formatting nicer for build methods.
-    ;
+      ),
+    ) // This trailing comma makes auto-formatting nicer for build methods.
+        ;
   }
 }

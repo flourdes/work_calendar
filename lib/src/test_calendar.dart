@@ -3,7 +3,6 @@ import 'package:scrollable_clean_calendar/controllers/clean_calendar_controller.
 import 'package:scrollable_clean_calendar/scrollable_clean_calendar.dart';
 import 'package:scrollable_clean_calendar/utils/enums.dart';
 
-
 class TestCalendar extends StatelessWidget {
   final calendarController = CleanCalendarController(
     minDate: DateTime.now(),
@@ -22,6 +21,7 @@ class TestCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: const ColorScheme(
           primary: Color(0xFF3F51B5),
