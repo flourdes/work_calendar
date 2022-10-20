@@ -108,7 +108,6 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
       ),
     );
   }
-
   _topPart() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
