@@ -44,6 +44,7 @@ class TestCalendar extends StatelessWidget {
           calendarController: calendarController,
           layout: Layout.BEAUTY,
           calendarCrossAxisSpacing: 0,
+          scrollController: null,
         ),
       ),
     );

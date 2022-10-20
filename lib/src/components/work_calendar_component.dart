@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/src/test_calendar.dart';
-
-import 'models/task.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:untitled/src/models/employee.dart';
 
 class WorkCalendarComponent extends StatefulWidget {
-  final List<Task> tasks;
+  final Employee employee;
 
   const WorkCalendarComponent({
     Key? key,
-    required this.tasks,
+    required this.employee,
   }) : super(key: key);
 
   @override
@@ -40,7 +39,10 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           const SizedBox(height: 10),
-          const Divider(height: 0),
+          const Divider(
+            height: 0,
+            endIndent: 25,
+          ),
           Expanded(
             child: RawScrollbar(
               controller: _scrollController,
@@ -51,7 +53,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
               radius: const Radius.circular(10),
               trackRadius: const Radius.circular(10),
               child: Padding(
-                padding: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.only(right: 25),
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
@@ -60,7 +62,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                     separatorBuilder: (context, index) {
                       return const Divider();
                     },
-                    itemCount: widget.tasks.length,
+                    itemCount: widget.employee.tasks.length,
                     itemBuilder: (context, index) {
                       return SizedBox(
                         height: 40,
@@ -70,13 +72,14 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                widget.tasks[index].product,
+                                widget.employee.tasks[index].product,
                                 style: const TextStyle(
                                   color: Colors.teal,
                                 ),
                               ),
-                              Text(widget.tasks[index].procedure),
-                              Text(widget.tasks[index].amount.toString()),
+                              Text(widget.employee.tasks[index].procedure),
+                              Text(widget.employee.tasks[index].amount
+                                  .toString()),
                             ],
                           ),
                         ),
@@ -101,78 +104,141 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   }
 
   _worckCalendarCard() {
+    List<String> lista = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
+
     return Padding(
       padding: const EdgeInsets.all(0.1),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          height: 600,
-          width: 1000,
-          color: Colors.white,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20),
+              height: 600,
+              width: 1000,
+              color: Colors.white,
+              child: Column(
                 children: [
-                  Container(
-                    height: 25,
-                    width: 25,
-                    decoration: const BoxDecoration(
-                      color: Colors.amber,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: SizedBox.square(
+                          dimension: 35,
+                          child: Image.network(
+                            widget.employee.imageURL,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Text(
+                        widget.employee.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    "Juliana Estefanía Martínez",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Divider(
+                    height: 20,
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    indent: 30,
+                    endIndent: 20,
                   ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(30),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.grey.shade200,
+                              ),
+                              child: TableCalendar(
+                                firstDay: DateTime.utc(2010, 10, 16),
+                                lastDay: DateTime.utc(2030, 3, 14),
+                                focusedDay: DateTime.now(),
+                                headerStyle: const HeaderStyle(
+                                  formatButtonVisible: false,
+                                  titleCentered: true,
+                                ),
+                                startingDayOfWeek: StartingDayOfWeek.monday,
+                                daysOfWeekStyle: DaysOfWeekStyle(
+                                  dowTextFormatter: (date, locale) {
+                                    return lista[date.weekday - 1];
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: _profits(),
+                              ),
+                              // const SizedBox(height: 20),
+                              Expanded(
+                                flex: 3,
+                                child: _taskList(),
+                              ),
+                              const SizedBox(height: 15),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-              const Divider(
-                height: 20,
-                color: Colors.grey,
-                thickness: 3,
-              ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(child: TestCalendar()),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: _profits(),
-                          ),
-                          // const SizedBox(height: 20),
-                          Expanded(
-                            flex: 3,
-                            child: _taskList(),
-                          ),
-                        ],
-                      ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10, top: 5),
+                child: SizedBox.square(
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      dividerColor: Colors.transparent,
                     ),
-                  ],
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _profits() {
-    late int ganancia = 420;
-    late double ganancias = 10000;
+    late double ganancia = widget.employee.salary.dailySalary;
+    late double ganancias = widget.employee.salary.totalSalary;
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 30, bottom: 30, right: 20, left: 15),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           _profitsContainer('Ganancia Diaria:', ganancia),
           const SizedBox(height: 10),
@@ -182,7 +248,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
     );
   }
 
-  Widget _profitsContainer(String label, ganancia) {
+  Widget _profitsContainer(String label, double ganancia) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(

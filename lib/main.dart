@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/src/components/task.dart';
+import 'package:untitled/src/models/employee.dart';
+import 'package:untitled/src/models/salary.dart';
+import 'package:untitled/src/models/task.dart';
 import 'package:untitled/src/components/work_calendar_component.dart';
 
 void main() {
@@ -37,15 +39,28 @@ class _MyHomePageState extends State<MyHomePage> {
         context: context,
         builder: (context) {
           return WorkCalendarComponent(
-            tasks: [
-              Task(procedure: "Test", product: "Test", amount: 10),
-              Task(procedure: "Test", product: "Test", amount: 10),
-              Task(procedure: "Test", product: "Test", amount: 10),
-              Task(procedure: "Test", product: "Test", amount: 10),
-              Task(procedure: "Test", product: "Test", amount: 10),
-              Task(procedure: "Test", product: "Test", amount: 10),
-              Task(procedure: "Test", product: "Test", amount: 10),
-            ],
+            employee: Employee(
+              salary: Salary(dailySalary: 44310, totalSalary: 1041242),
+              tasks: [
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+                Task(procedure: "A", product: "Asf", amount: 10),
+              ],
+              id: 10,
+              imageURL: "https://pbs.twimg.com/media/Bz20cVEIYAAGS-4.jpg",
+              name: 'Patricia',
+            ),
           );
         });
   }
