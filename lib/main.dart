@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) {
           return WorkCalendarComponent(
             employee: Employee(
-              salary: Salary(dailySalary: 44310, totalSalary: 1041242),
+              salary: Salary(dailySalary: 420, totalSalary: 10000),
               tasks: [
                 Task(procedure: "A", product: "Asf", amount: 10),
                 Task(procedure: "A", product: "Asf", amount: 10),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:untitled/src/models/employee.dart';
-import 'package:intl/intl_browser.dart';
-
-
 
 class WorkCalendarComponent extends StatefulWidget {
   final Employee employee;
@@ -13,8 +11,6 @@ class WorkCalendarComponent extends StatefulWidget {
     required this.employee,
   }) : super(key: key);
 
-
-
   @override
   State<WorkCalendarComponent> createState() => _WorkCalendarComponentState();
 }
@@ -22,7 +18,7 @@ class WorkCalendarComponent extends StatefulWidget {
 class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   late ScrollController _scrollController;
   late final Color _primaryColor = Colors.grey.shade200;
-  late final Color _secondColor = Colors.teal;
+  late final Color _secondaryColor = Colors.teal;
 
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -177,9 +173,11 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
       headerStyle: const HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,
-        leftChevronIcon: Icon(Icons.chevron_left, size: 50,),
+        leftChevronIcon: Icon(
+          Icons.chevron_left,
+          size: 50,
+        ),
         rightChevronIcon: Icon(Icons.chevron_right, size: 50),
-
       ),
       startingDayOfWeek: StartingDayOfWeek.monday,
       daysOfWeekStyle: DaysOfWeekStyle(
@@ -234,16 +232,16 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                 color: Colors.grey,
               )),
           const Expanded(child: SizedBox()),
-           Icon(
+          Icon(
             Icons.attach_money,
             size: 20,
-            color: _secondColor,
+            color: _secondaryColor,
           ),
           Text(
             ganancia.toString(),
             style: TextStyle(
               fontSize: 20,
-              color: _secondColor,
+              color: _secondaryColor,
             ),
           ),
         ],
@@ -270,7 +268,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
             trackVisibility: true,
             thumbVisibility: true,
             trackColor: Colors.grey,
-            thumbColor: _secondColor,
+            thumbColor: _secondaryColor,
             radius: const Radius.circular(10),
             trackRadius: const Radius.circular(10),
             child: Padding(
