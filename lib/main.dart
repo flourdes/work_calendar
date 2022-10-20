@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
               id: 10,
               imageURL: "https://pbs.twimg.com/media/Bz20cVEIYAAGS-4.jpg",
-              name: 'Patricia',
+              name: 'Patricia Martínez',
             ),
           );
         });

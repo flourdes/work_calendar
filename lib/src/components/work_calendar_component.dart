@@ -28,158 +28,90 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
     return _workCalendar();
   }
 
-  _taskList() {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Tareas Realizadas",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          const SizedBox(height: 10),
-          const Divider(
-            height: 0,
-            endIndent: 25,
-          ),
-          Expanded(
-            child: RawScrollbar(
-              controller: _scrollController,
-              trackVisibility: true,
-              thumbVisibility: true,
-              trackColor: Colors.grey,
-              thumbColor: Colors.teal,
-              radius: const Radius.circular(10),
-              trackRadius: const Radius.circular(10),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 25),
-                child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: ListView.separated(
-                    controller: _scrollController,
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
-                    itemCount: widget.employee.tasks.length,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        height: 40,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                widget.employee.tasks[index].product,
-                                style: const TextStyle(
-                                  color: Colors.teal,
-                                ),
-                              ),
-                              Text(widget.employee.tasks[index].procedure),
-                              Text(widget.employee.tasks[index].amount
-                                  .toString()),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   _workCalendar() {
     return AlertDialog(
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       content: (_worckCalendarCard()),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
     );
   }
 
   _worckCalendarCard() {
     List<String> lista = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
-
-    return Padding(
-      padding: const EdgeInsets.all(0.1),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Stack(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              height: 600,
-              width: 1000,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Row(
+    return SizedBox(
+      height: 600,
+      width: 1000,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(35),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: SizedBox.square(
+                        dimension: 35,
+                        child: Image.network(
+                          widget.employee.imageURL,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      widget.employee.name,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(
+                  height: 40,
+                  color: Colors.grey.shade300,
+                  thickness: 2,
+                ),
+                Expanded(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: SizedBox.square(
-                          dimension: 35,
-                          child: Image.network(
-                            widget.employee.imageURL,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Text(
-                        widget.employee.name,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Divider(
-                    height: 20,
-                    color: Colors.grey.shade300,
-                    thickness: 2,
-                    indent: 30,
-                    endIndent: 20,
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(30),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey.shade200,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15, bottom: 15),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey.shade200,
+                            ),
+                            child: TableCalendar(
+                              firstDay: DateTime.utc(2010, 10, 16),
+                              lastDay: DateTime.utc(2030, 3, 14),
+                              focusedDay: DateTime.now(),
+                              headerStyle: const HeaderStyle(
+                                formatButtonVisible: false,
+                                titleCentered: true,
                               ),
-                              child: TableCalendar(
-                                firstDay: DateTime.utc(2010, 10, 16),
-                                lastDay: DateTime.utc(2030, 3, 14),
-                                focusedDay: DateTime.now(),
-                                headerStyle: const HeaderStyle(
-                                  formatButtonVisible: false,
-                                  titleCentered: true,
-                                ),
-                                startingDayOfWeek: StartingDayOfWeek.monday,
-                                daysOfWeekStyle: DaysOfWeekStyle(
-                                  dowTextFormatter: (date, locale) {
-                                    return lista[date.weekday - 1];
-                                  },
-                                ),
+                              startingDayOfWeek: StartingDayOfWeek.monday,
+                              daysOfWeekStyle: DaysOfWeekStyle(
+                                dowTextFormatter: (date, locale) {
+                                  return lista[date.weekday - 1];
+                                },
                               ),
                             ),
                           ),
                         ),
-                        Expanded(
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, bottom: 15),
                           child: Column(
                             children: [
                               Expanded(
@@ -195,39 +127,36 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10, top: 5),
-                child: SizedBox.square(
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      dividerColor: Colors.transparent,
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.close,
-                        size: 30,
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
+                    ],
                   ),
+                )
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: SizedBox.square(
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  dividerColor: Colors.transparent,
+                ),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.close,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -235,16 +164,13 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   Widget _profits() {
     late double ganancia = widget.employee.salary.dailySalary;
     late double ganancias = widget.employee.salary.totalSalary;
-    return Padding(
-      padding: const EdgeInsets.only(top: 30, bottom: 30, right: 20, left: 15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _profitsContainer('Ganancia Diaria:', ganancia),
-          const SizedBox(height: 10),
-          _profitsContainer('Ganancia Total:', ganancias),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        _profitsContainer('Ganancia Diaria:', ganancia),
+        const SizedBox(height: 10),
+        _profitsContainer('Ganancia Total:', ganancias),
+      ],
     );
   }
 
@@ -279,6 +205,61 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _taskList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Tareas Realizadas",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+        const SizedBox(height: 10),
+        const Divider(
+          height: 0,
+          endIndent: 25,
+        ),
+        Expanded(
+          child: RawScrollbar(
+            controller: _scrollController,
+            trackVisibility: true,
+            thumbVisibility: true,
+            trackColor: Colors.grey,
+            thumbColor: Colors.teal,
+            radius: const Radius.circular(10),
+            trackRadius: const Radius.circular(10),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 25),
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context)
+                    .copyWith(scrollbars: false),
+                child: ListView.separated(
+                  controller: _scrollController,
+                  separatorBuilder: (context, index) {return const Divider();},
+                  itemCount: widget.employee.tasks.length,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.employee.tasks[index].product,
+                            style: const TextStyle(color: Colors.teal,),),
+                          Text(widget.employee.tasks[index].procedure),
+                          Text(widget.employee.tasks[index].amount
+                              .toString()),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
