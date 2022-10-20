@@ -41,7 +41,6 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   }
 
   _worckCalendarCard() {
-    List<String> lista = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
     return SizedBox(
       height: 600,
       width: 1000,
@@ -51,29 +50,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
             padding: const EdgeInsets.all(35),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: SizedBox.square(
-                        dimension: 35,
-                        child: Image.network(
-                          widget.employee.imageURL,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Text(
-                      widget.employee.name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
+                _topPart(),
                 Divider(
                   height: 40,
                   color: Colors.grey.shade300,
@@ -84,49 +61,10 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 15, bottom: 15),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.grey.shade200,
-                            ),
-                            child: TableCalendar(
-                              firstDay: DateTime.utc(2010, 10, 16),
-                              lastDay: DateTime.utc(2030, 3, 14),
-                              focusedDay: DateTime.now(),
-                              headerStyle: const HeaderStyle(
-                                formatButtonVisible: false,
-                                titleCentered: true,
-                              ),
-                              startingDayOfWeek: StartingDayOfWeek.monday,
-                              daysOfWeekStyle: DaysOfWeekStyle(
-                                dowTextFormatter: (date, locale) {
-                                  return lista[date.weekday - 1];
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
+                        child: _leftHalf(),
                       ),
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, bottom: 15),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: _profits(),
-                              ),
-                              // const SizedBox(height: 20),
-                              Expanded(
-                                flex: 3,
-                                child: _taskList(),
-                              ),
-                              const SizedBox(height: 15),
-                            ],
-                          ),
-                        ),
+                        child: _rightHalf(),
                       ),
                     ],
                   ),
@@ -161,7 +99,86 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
     );
   }
 
-  Widget _profits() {
+  _topPart() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: SizedBox.square(
+            dimension: 35,
+            child: Image.network(
+              widget.employee.imageURL,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        const SizedBox(width: 20),
+        Text(
+          widget.employee.name,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+  _rightHalf() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, bottom: 15),
+      child: Column(
+        children: [
+          Expanded(
+            flex: 2,
+            child: _profits(),
+          ),
+          // const SizedBox(height: 20),
+          Expanded(
+            flex: 3,
+            child: _taskList(),
+          ),
+          const SizedBox(height: 15),
+        ],
+      ),
+    );
+  }
+
+  _leftHalf() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 15, bottom: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey.shade200,
+        ),
+        child: _calendar(),
+      ),
+    );
+  }
+
+  _calendar() {
+    List<String> days = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
+
+    return TableCalendar(
+      firstDay: DateTime.utc(2010, 10, 16),
+      lastDay: DateTime.utc(2030, 3, 14),
+      focusedDay: DateTime.now(),
+      headerStyle: const HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+      ),
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      daysOfWeekStyle: DaysOfWeekStyle(
+        dowTextFormatter: (date, locale) {
+          return days[date.weekday - 1];
+        },
+      ),
+    );
+  }
+
+  _profits() {
     late double ganancia = widget.employee.salary.dailySalary;
     late double ganancias = widget.employee.salary.totalSalary;
     return Column(
@@ -174,7 +191,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
     );
   }
 
-  Widget _profitsContainer(String label, double ganancia) {
+  _profitsContainer(String label, double ganancia) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -208,13 +225,14 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
     );
   }
 
-  Widget _taskList() {
+  _taskList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           "Tareas Realizadas",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
         const SizedBox(height: 10),
         const Divider(
           height: 0,
@@ -232,11 +250,13 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
             child: Padding(
               padding: const EdgeInsets.only(right: 25),
               child: ScrollConfiguration(
-                behavior: ScrollConfiguration.of(context)
-                    .copyWith(scrollbars: false),
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: ListView.separated(
                   controller: _scrollController,
-                  separatorBuilder: (context, index) {return const Divider();},
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
                   itemCount: widget.employee.tasks.length,
                   itemBuilder: (context, index) {
                     return SizedBox(
@@ -246,10 +266,12 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                         children: [
                           Text(
                             widget.employee.tasks[index].product,
-                            style: const TextStyle(color: Colors.teal,),),
+                            style: const TextStyle(
+                              color: Colors.teal,
+                            ),
+                          ),
                           Text(widget.employee.tasks[index].procedure),
-                          Text(widget.employee.tasks[index].amount
-                              .toString()),
+                          Text(widget.employee.tasks[index].amount.toString()),
                         ],
                       ),
                     );
