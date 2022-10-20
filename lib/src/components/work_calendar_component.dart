@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:untitled/src/models/employee.dart';
+import 'package:intl/intl_browser.dart';
+
+
 
 class WorkCalendarComponent extends StatefulWidget {
   final Employee employee;
@@ -20,6 +23,9 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
   late ScrollController _scrollController;
   late final Color _primaryColor = Colors.grey.shade200;
   late final Color _secondColor = Colors.teal;
+
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   @override
   void initState() {
@@ -98,7 +104,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                             child: TableCalendar(
                               firstDay: DateTime.utc(2010, 10, 16),
                               lastDay: DateTime.utc(2030, 3, 14),
-                              focusedDay: DateTime.now(),
+                              focusedDay: _focusedDay,
                               headerStyle: const HeaderStyle(
                                 formatButtonVisible: false,
                                 titleCentered: true,
@@ -109,6 +115,20 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                                   return lista[date.weekday - 1];
                                 },
                               ),
+                              selectedDayPredicate: (day) {
+                                return isSameDay(_selectedDay, day);
+                              },
+                              onDaySelected: (selectedDay, focusedDay) {
+                                if (!isSameDay(_selectedDay, selectedDay)) {
+                                  setState(() {
+                                    _selectedDay = selectedDay;
+                                    _focusedDay = focusedDay;
+                                  });
+                                }
+                              },
+                              onPageChanged: (focusedDay) {
+                                _focusedDay = focusedDay;
+                              },
                             ),
                           ),
                         ),
