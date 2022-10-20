@@ -77,7 +77,16 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: _save,
           padding: const EdgeInsets.all(12),
           color: Colors.blueAccent,
-          child: Text("trabajos"),
+          child: const SizedBox(
+            height: 50,
+            width: 100,
+            child: Center(
+              child: Text(
+                "Trabajos",
+                textScaleFactor: 1.5,
+              ),
+            ),
+          ),
         ),
       ),
     ) // This trailing comma makes auto-formatting nicer for build methods.
