@@ -5,7 +5,17 @@ import 'package:untitled/src/models/employee.dart';
 
 class WorkCalendarComponent extends StatefulWidget {
   final Employee employee;
-
+  ///--INFO--
+  ///
+  /// (Grupo 4 tercera semana)
+  ///
+  ///Colaboradores que construyeron este widget: Fernandez Agustin, Martearena Ivan, Fernandez Lourdes.
+  ///
+  /// WorkCalendarComponent representa un calendario de trabajo en donde se pueden ver las actividades que el
+  /// empleado ha realizado durante el dia que se haya seleccionado en el calendario, a su vez muestra un estimado
+  /// de ganancias: ganancia diaria y ganancia total.
+  ///
+  /// Este widget recibe modelo de empleado, salario y tareas.
   const WorkCalendarComponent({
     Key? key,
     required this.employee,
