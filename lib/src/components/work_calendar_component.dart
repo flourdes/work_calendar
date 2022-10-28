@@ -1,24 +1,44 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:untitled/src/models/employee.dart';
 
+import '../models/salary.dart';
+import '../models/task.dart';
+
+///--------------INFO--------------
+///
+/// (Grupo 4 tercera semana)
+///
+///Colaboradores que construyeron este widget: Fernández Agustín, Martearena Iván, Fernández Lourdes.
+///
+/// WorkCalendarComponent representa un calendario de trabajo en donde se pueden ver las actividades que el
+/// empleado ha realizado durante el dia que se haya seleccionado en el calendario, a su vez muestra un estimado
+/// de ganancias: ganancia diaria y ganancia total.
+///
+/// Este widget recibe modelo de empleado, salario y tareas.
 class WorkCalendarComponent extends StatefulWidget {
-  final Employee employee;
-  ///--INFO--
+  Employee employee;
+  List<Task> tasks;
+  Salary salary;
+
+  ///--------------INFO--------------
   ///
   /// (Grupo 4 tercera semana)
   ///
-  ///Colaboradores que construyeron este widget: Fernandez Agustin, Martearena Ivan, Fernandez Lourdes.
+  ///Colaboradores que construyeron este widget: Fernández Agustín, Martearena Iván, Fernández Lourdes.
   ///
   /// WorkCalendarComponent representa un calendario de trabajo en donde se pueden ver las actividades que el
   /// empleado ha realizado durante el dia que se haya seleccionado en el calendario, a su vez muestra un estimado
   /// de ganancias: ganancia diaria y ganancia total.
   ///
   /// Este widget recibe modelo de empleado, salario y tareas.
-  const WorkCalendarComponent({
+  WorkCalendarComponent({
     Key? key,
     required this.employee,
+    required this.salary,
+    required this.tasks,
   }) : super(key: key);
 
   @override
@@ -114,6 +134,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
       ),
     );
   }
+
   _topPart() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +170,6 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
             flex: 2,
             child: _profits(),
           ),
-          // const SizedBox(height: 20),
           Expanded(
             flex: 3,
             child: _taskList(),
@@ -206,6 +226,28 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
           });
         }
       },
+      calendarStyle: CalendarStyle(
+        selectedDecoration: BoxDecoration(
+          color: Colors.teal,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        defaultDecoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        rowDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        todayDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        markerDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        holidayDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        outsideDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        weekendDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        rangeEndDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        disabledDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        rangeStartDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        withinRangeDecoration: const BoxDecoration(shape: BoxShape.rectangle),
+        //Error solucionado seteando el valor a todos los Decoration. (NO CAMBIAR)
+        isTodayHighlighted: false,
+      ),
       onPageChanged: (focusedDay) {
         _focusedDay = focusedDay;
       },
@@ -216,11 +258,9 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _profitsContainer(
-            'Ganancia Diaria:', widget.employee.salary.dailySalary),
+        _profitsContainer('Ganancia Diaria:', widget.salary.dailySalary),
         const SizedBox(height: 10),
-        _profitsContainer(
-            'Ganancia Total:', widget.employee.salary.totalSalary),
+        _profitsContainer('Ganancia Total:', widget.salary.totalSalary),
       ],
     );
   }
@@ -291,7 +331,7 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                   separatorBuilder: (context, index) {
                     return const Divider();
                   },
-                  itemCount: widget.employee.tasks.length,
+                  itemCount: widget.tasks.length,
                   itemBuilder: (context, index) {
                     return SizedBox(
                       height: 40,
@@ -299,13 +339,13 @@ class _WorkCalendarComponentState extends State<WorkCalendarComponent> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.employee.tasks[index].product,
+                            widget.tasks[index].product,
                             style: const TextStyle(
                               color: Colors.teal,
                             ),
                           ),
-                          Text(widget.employee.tasks[index].procedure),
-                          Text(widget.employee.tasks[index].amount.toString()),
+                          Text(widget.tasks[index].procedure),
+                          Text(widget.tasks[index].amount.toString()),
                         ],
                       ),
                     );

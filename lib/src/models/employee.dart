@@ -9,14 +9,10 @@ class Employee {
   late DateTime? startTime;
   late DateTime? endTime;
   late int workArea;
-  final List<Task> tasks;
-  final Salary salary;
 
   Employee({
     required this.id,
     required this.name,
     required this.imageURL,
-    required this.tasks,
-    required this.salary,
   });
 }
