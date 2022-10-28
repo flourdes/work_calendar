@@ -1,7 +1,3 @@
-import 'package:untitled/src/models/salary.dart';
-
-import '../models/task.dart';
-
 class Employee {
   final int id;
   final String name;
